@@ -20,11 +20,20 @@
       font-size: 1.2em;
       margin: 0.5em 0;
     }
+    .bar-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      margin: 0 auto 0.5em auto;
+      font-weight: bold;
+      font-size: 0.9em;
+      color: #ff69b4;
+    }
     .progress {
       background-color: #eee;
       border-radius: 25px;
       overflow: hidden;
-      margin: 1.5em auto;
+      margin: 0 auto 1.5em auto;
       width: 90%;
       height: 30px;
     }
@@ -47,10 +56,9 @@
     }
     .carousel {
       display: flex;
-      transition: transform 0.5s ease;
-      gap: 20px;
       justify-content: center;
       align-items: center;
+      gap: 20px;
     }
     .carousel img {
       flex: 0 0 auto;
@@ -59,18 +67,27 @@
       border-radius: 10px;
       transition: transform 0.5s, opacity 0.5s;
       transform: scale(0.9);
+      display: none;
     }
     .carousel img.center {
       width: 140px;
       opacity: 1;
       transform: scale(1.2);
       z-index: 2;
+      display: inline;
+    }
+    .carousel img.side {
+      display: inline;
     }
   </style>
 </head>
 <body>
   <h1>Miss you more 💖</h1>
   <p id="percent"></p>
+  <div class="bar-labels">
+    <span id="passed-label"></span>
+    <span id="remaining-label"></span>
+  </div>
   <div class="progress">
     <div class="bar" id="bar"></div>
   </div>
@@ -102,35 +119,36 @@
       const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((remaining / (1000 * 60)) % 60);
 
+      const timeText = `${days} days, ${hours} hours, and ${minutes} minutes left!`;
+
       document.getElementById("percent").textContent = `We've made it through ${percent}% of the wait.`;
       document.getElementById("bar").style.width = `${percent}%`;
       document.getElementById("bar").textContent = `${percent}%`;
+      document.getElementById("passed-label").textContent = `${percent}%`;
+      document.getElementById("remaining-label").textContent = `${(100 - percent).toFixed(1)}%`;
 
-      if (remaining > 0) {
-        document.getElementById("time-left").textContent = `⏳ Only ${days} days, ${hours} hours, and ${minutes} minutes left!`;
-      } else {
-        document.getElementById("time-left").textContent = `💞 You're together again!`;
-      }
+      document.getElementById("time-left").textContent = remaining > 0
+        ? `⏳ Only ${timeText}`
+        : `💞 You're together again!`;
     }
 
-    // New carousel logic: only 3 visible, center image enlarged
+    // Improved looping carousel with center logic
     const carousel = document.getElementById('carousel');
     const images = carousel.querySelectorAll('img');
     let index = 0;
 
     function updateCarousel() {
-      images.forEach(img => img.classList.remove('center'));
-      images.forEach((img, i) => img.style.display = 'none');
+      images.forEach(img => img.classList.remove('center', 'side'));
+      images.forEach(img => img.style.display = 'none');
 
-      const prev = (index - 1 + images.length) % images.length;
+      const total = images.length;
+      const prev = (index - 1 + total) % total;
       const curr = index;
-      const next = (index + 1) % images.length;
+      const next = (index + 1) % total;
 
-      images[prev].style.display = 'inline';
-      images[curr].style.display = 'inline';
-      images[next].style.display = 'inline';
-
+      images[prev].classList.add('side');
       images[curr].classList.add('center');
+      images[next].classList.add('side');
     }
 
     setInterval(() => {
