@@ -38,6 +38,27 @@
       font-weight: bold;
       transition: width 1s;
     }
+    .carousel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      margin-top: 2em;
+    }
+    .carousel img {
+      width: 100px;
+      height: auto;
+      border-radius: 15px;
+      opacity: 0.5;
+      transition: transform 0.5s, opacity 0.5s;
+    }
+    .carousel img.active {
+      width: 150px;
+      transform: scale(1.2);
+      opacity: 1;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
@@ -47,7 +68,14 @@
     <div class="bar" id="bar"></div>
   </div>
   <p id="time-left"></p>
-  <p id="countdown"></p>
+  <div class="carousel" id="carousel">
+    <img src="img1.jpg" alt="1">
+    <img src="img2.jpg" alt="2">
+    <img src="img3.jpg" alt="3">
+    <img src="img4.jpg" alt="4">
+    <img src="img5.jpg" alt="5">
+    <img src="img6.jpg" alt="6">
+  </div>
 
   <script>
     const start = new Date("2025-06-24T17:30:00");
@@ -63,7 +91,7 @@
       const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
       const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((remaining / (1000 * 60)) % 60);
-      
+
       document.getElementById("percent").textContent = `We've made it through ${percent}% of the wait.`;
       document.getElementById("bar").style.width = `${percent}%`;
       document.getElementById("bar").textContent = `${percent}%`;
@@ -72,12 +100,25 @@
         document.getElementById("time-left").textContent = `⏳ Only ${days} days, ${hours} hours, and ${minutes} minutes left!`;
       } else {
         document.getElementById("time-left").textContent = `💞 You're together again!`;
-        document.getElementById("countdown").textContent = "";
       }
     }
 
+    // carousel effect
+    let current = 0;
+    const imgs = document.querySelectorAll(".carousel img");
+    function updateCarousel() {
+      imgs.forEach((img, i) => img.classList.remove("active"));
+      imgs[current].classList.add("active");
+    }
+    setInterval(() => {
+      current = (current + 1) % imgs.length;
+      updateCarousel();
+    }, 3000);
+    updateCarousel();
+
     updateProgress();
-    setInterval(updateProgress, 60 * 1000);
+    setInterval(updateProgress, 60000);
   </script>
 </body>
 </html>
+
