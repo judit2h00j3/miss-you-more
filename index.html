@@ -192,9 +192,10 @@
       nextImg.classList.remove('center');
 
       [prevImg, currImg, nextImg].forEach(img => {
-        img.classlist.add('fade-in');
+        img.classList.add('fade-in');
         carousel.appendChild(img);
-      }
+      });
+    }
 
     document.getElementById("prev-btn").addEventListener("click", () => {
       index = (index - 1 + images.length) % images.length;
