@@ -194,25 +194,18 @@
       const curr = index;
       const next = (index + 1) % total;
 
-      carousel.innerHTML = '';
+      images.forEach((img, i) => {
+      img.classList.remove("center", "side", "hidden");
 
-      const prevImg = images[prev].cloneNode();
-      const currImg = images[curr].cloneNode();
-      const nextImg = images[next].cloneNode();
-
-      prevImg.classList.remove('center');
-      currImg.classList.add('center');
-      nextImg.classList.remove('center');
-
-      [prevImg, currImg, nextImg].forEach(img => {
-        img.classList.add('fade-in');
-        carousel.appendChild(img);
-      });
-
-      const imgWidth = images[0].offsetWidth + 16; // image + gap
-      const offset = (imgWidth * index) - (track.offsetWidth / 2) + (imgWidth / 2);
-      track.style.transform = `translateX(${-offset}px)`;
-    }
+      if (i === curr) {
+        img.classList.add("center");
+      } else if (i === prev || i === next) {
+        img.classList.add("side");
+      } else {
+        img.classList.add("hidden");
+      }
+    });
+  }
 
     document.getElementById("prev-btn").addEventListener("click", () => {
       index = (index - 1 + images.length) % images.length;
