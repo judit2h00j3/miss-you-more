@@ -141,7 +141,6 @@
 
     function updateCarousel() {
       images.forEach(img => img.classList.remove('center', 'side'));
-      images.forEach(img => img.style.display = 'none');
 
       const total = images.length;
       const prev = (index - 1 + total) % total;
