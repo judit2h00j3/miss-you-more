@@ -38,25 +38,32 @@
       font-weight: bold;
       transition: width 1s;
     }
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 2em auto;
+      overflow: hidden;
+    }
     .carousel {
       display: flex;
+      transition: transform 0.5s ease;
+      gap: 20px;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      overflow: hidden;
-      margin-top: 2em;
     }
     .carousel img {
+      flex: 0 0 auto;
       width: 100px;
-      height: auto;
-      border-radius: 15px;
       opacity: 0.5;
+      border-radius: 10px;
       transition: transform 0.5s, opacity 0.5s;
+      transform: scale(0.9);
     }
-    .carousel img.active {
-      width: 150px;
-      transform: scale(1.2);
+    .carousel img.center {
+      width: 140px;
       opacity: 1;
+      transform: scale(1.2);
       z-index: 2;
     }
   </style>
@@ -68,13 +75,16 @@
     <div class="bar" id="bar"></div>
   </div>
   <p id="time-left"></p>
-  <div class="carousel" id="carousel">
-    <img src="img1.jpg" alt="1">
-    <img src="img2.jpg" alt="2">
-    <img src="img3.jpg" alt="3">
-    <img src="img4.jpg" alt="4">
-    <img src="img5.jpg" alt="5">
-    <img src="img6.jpg" alt="6">
+
+  <div class="carousel-wrapper">
+    <div class="carousel" id="carousel">
+      <img src="img1.jpg" alt="1">
+      <img src="img2.jpg" alt="2">
+      <img src="img3.jpg" alt="3">
+      <img src="img4.jpg" alt="4">
+      <img src="img5.jpg" alt="5">
+      <img src="img6.jpg" alt="6">
+    </div>
   </div>
 
   <script>
@@ -103,22 +113,32 @@
       }
     }
 
-    // carousel effect
-    let current = 0;
-    const imgs = document.querySelectorAll(".carousel img");
+    // New carousel logic: only 3 visible, center image enlarged
+    const carousel = document.getElementById('carousel');
+    const images = carousel.querySelectorAll('img');
+    let index = 0;
+
     function updateCarousel() {
-      imgs.forEach((img, i) => img.classList.remove("active"));
-      imgs[current].classList.add("active");
+      images.forEach(img => img.classList.remove('center'));
+      images.forEach((img, i) => img.style.display = 'none');
+
+      const prev = (index - 1 + images.length) % images.length;
+      const curr = index;
+      const next = (index + 1) % images.length;
+
+      images[prev].style.display = 'inline';
+      images[curr].style.display = 'inline';
+      images[next].style.display = 'inline';
+
+      images[curr].classList.add('center');
     }
+
     setInterval(() => {
-      current = (current + 1) % imgs.length;
+      index = (index + 1) % images.length;
       updateCarousel();
     }, 3000);
-    updateCarousel();
 
+    updateCarousel();
     updateProgress();
     setInterval(updateProgress, 60000);
-  </script>
-</body>
-</html>
-
+  </scri
