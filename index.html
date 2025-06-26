@@ -166,8 +166,10 @@
 
     function updateCarousel() {
       const total = images.length;
+      images.forEach(img => img.classList.remove("active"));
+      
       const prev = (index - 1 + total) % total;
-      const curr = index % images.length;
+      const curr = index % total;
       const next = (index + 1) % total;
 
       images.forEach((img, i) => {
