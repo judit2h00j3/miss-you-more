@@ -74,13 +74,18 @@
       max-width: 100%;
       overflow: hidden;
     }
-
+    .carousel-frame { 
+      overflow: hidden;
+      width: 100%;
+      max-width: 320px; 
+      margin: 0 auto
+        position: relative;
+    }
     .carousel-track {
       display: flex;
-      transition: transform 0.6s ease;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
+      gap: 12px;
+      transition: transform 0.5s ease;
+      will-change: transform
     }
 
     .carousel-track img {
@@ -132,7 +137,11 @@
     <button id="prev-btn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
     <button id="next-btn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
   </div>
-
+  <div class="carousel-frame">
+  <div class="carousel-track" id="carousel-track">
+    <!-- images here -->
+  </div>
+</div>
   <div class="carousel-wrapper">
     <div class="carousel-track" id="carousel-track">
       <img src="img1.jpg" alt="1" />
