@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Miss You Timer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,6 +53,9 @@
       justify-content: center;
       gap: 2em;
       margin-bottom: 1em;
+    }
+    .arrow-buttons i {
+      font-size: 1.5em;
     }
     .arrow-buttons button {
       font-size: 1.8em;
@@ -123,8 +127,8 @@
   </div>
   <p id="time-left"></p>
   <div class="arrow-buttons">
-    <button id = "prev-btn">⬅️</button>
-    <button id="next-btn">➡️</button>
+    <button id="prev-btn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+    <button id="next-btn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
   </div>
   <div class="carousel-frame">
     <div class="carousel" id="carousel">
