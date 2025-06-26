@@ -104,7 +104,10 @@
     <div class="bar" id="bar"></div>
   </div>
   <p id="time-left"></p>
-
+  <div class="arrow-buttons">
+    <button id = "prev-btn">⬅️</button>
+    <button id="next-btn">➡️</button>
+  </div>
   <div class="carousel-frame">
     <div class="carousel" id="carousel">
       <img src="img1.jpg" alt="1">
@@ -148,7 +151,7 @@
 
     const carousel = document.getElementById('carousel');
     const images = carousel.querySelectorAll('img');
-    let index = 0;
+    let index = Math.floor(Math.random() * images.length);
 
     function updateCarousel() {
       const total = images.length;
