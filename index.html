@@ -84,7 +84,7 @@
       z-index: 2;
     }
     .fade-in {
-      animation: fadeIn 0.85 ease-in-out;
+      animation: fadeIn 0.85s ease-in-out;
     }
 
     @keyframes fadeIn{
@@ -170,11 +170,6 @@
         img.classlist.add('fade-in');
         carousel.appendChild(img);
       }
-
-      carousel.appendChild(prevImg);
-      carousel.appendChild(currImg);
-      carousel.appendChild(nextImg);
-    }
 
     setInterval(() => {
       index = (index + 1) % images.length;
