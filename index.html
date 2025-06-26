@@ -47,6 +47,23 @@
       font-weight: bold;
       transition: width 1s;
     }
+    .arrow-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin-bottom: 1em;
+    }
+    .arrow-buttons button {
+      font-size: 1.8em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #ff69b4;
+      transition: transform 0.2s;
+    }
+    .arrow-buttons button:hover {
+      transform: scale(1.2);
+    }
     .carousel-wrapper {
       position: relative;
       width: 100%;
@@ -83,6 +100,7 @@
       transform: scale(1.2);
       z-index: 2;
     }
+  
     .fade-in {
       animation: fadeIn 0.85s ease-in-out;
     }
@@ -174,10 +192,16 @@
         carousel.appendChild(img);
       }
 
-    setInterval(() => {
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      index = (index - 1 + images.length) % images.length;
+      updateCarousel();
+    });
+
+    document.getElementById("next-btn").addEventListener("click", () => {
       index = (index + 1) % images.length;
       updateCarousel();
-    }, 3000);
+    });
+
 
     updateCarousel();
     updateProgress();
