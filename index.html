@@ -92,7 +92,7 @@
     .carousel-track img {
       position: absolute;
       width: 80px;
-      opacity: 0.3;
+      opacity: 0;
       transform: scale(0.8);
       transition: transform 0.6s ease, opacity 0.6s ease;
       border-radius: 10px;
@@ -115,13 +115,10 @@
       opacity: 0.6;
       z-index: 2;
     }
-    .carousel-track img.hidden {
-      display: none;
-    }
   </style>
 </head>
 <body>
-  <h1>Miss you more 💖</h1>
+  <h1>Miss you more! 💖</h1>
   <p id="percent"></p>
   <div class="bar-labels">
     <span id="passed-label"></span>
@@ -183,7 +180,7 @@
       const next = (index + 1) % total;
 
       images.forEach((img, i) => {
-        img.className = "hidden";
+        img.className = '';
       });
 
       images[prev].classList.add("side-left");
