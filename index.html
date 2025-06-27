@@ -78,32 +78,50 @@
       max-width: 300px;
       margin: 2em auto;
       overflow: hidden;
+      position: relative;
+      height: 120px;
     }
     .carousel-track {
       display: flex;
-      transition: transform 0.5s ease;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
     }
     .carousel-track img {
+      position: absolute;
       width: 80px;
       opacity: 0.3;
       transform: scale(0.8);
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      transition: transform 0.6s ease, opacity 0.6s ease;
       border-radius: 10px;
-      flex-shrink: 0;
     }
     .carousel-track img.center {
-      width: 100px;
-      transform: scale(1.3);
+      left: 50%;
+      transform: translateX(-50%) scale(1.3);
       opacity: 1;
+      z-index: 3;
+    }
+    .carousel-track img.side-left {
+      left: 10%;
+      transform: translateX(-50%) scale(0.9);
+      opacity: 0.6;
       z-index: 2;
     }
-    .carousel-track img.side {
+    .carousel-track img.side-right {
+      left: 90%;
+      transform: translateX(-50%) scale(0.9);
       opacity: 0.6;
+      z-index: 2;
+    }
+    .carousel-track img.hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>Miss you more! 💖</h1>
+  <h1>Miss you more 💖</h1>
   <p id="percent"></p>
   <div class="bar-labels">
     <span id="passed-label"></span>
@@ -165,21 +183,12 @@
       const next = (index + 1) % total;
 
       images.forEach((img, i) => {
-        img.classList.remove("center", "side");
+        img.className = "hidden";
       });
 
-      images.forEach((img, i) => {
-        if (i === curr) {
-          img.classList.add("center");
-        } else if (i === prev || i === next) {
-          img.classList.add("side");
-        }
-      });
-
-      // Move the track to center the current image
-      const imageWidth = images[0].offsetWidth + 16; // 16 is the gap (margin)
-      const offset = (curr - 1) * imageWidth;
-      track.style.transform = `translateX(-${offset}px)`;
+      images[prev].classList.add("side-left");
+      images[curr].classList.add("center");
+      images[next].classList.add("side-right");
     }
 
     document.getElementById("prev-btn").addEventListener("click", () => {
